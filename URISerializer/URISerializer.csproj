@@ -40,8 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="URISerializer.cs" />
+    <Compile Include="PrimitiveConverter.cs" />
+    <Compile Include="ReflectionUtils.cs" />
+    <Compile Include="IUriConverter.cs" />
+    <Compile Include="SchemeResolver.cs" />
+    <Compile Include="UriConstructorAttribute.cs" />
+    <Compile Include="UriConverterAttribute.cs" />
+    <Compile Include="UriPropertyAttribute.cs" />
+    <Compile Include="UriSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UriSerializerSettings.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

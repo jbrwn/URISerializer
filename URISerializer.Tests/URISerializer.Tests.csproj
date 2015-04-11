@@ -50,13 +50,13 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="DeserializationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\URISerializer\URISerializer.csproj">
+    <ProjectReference Include="..\URISerializer\UriSerializer.csproj">
       <Project>{83a25229-b3b2-438f-a2e4-b81ceff19317}</Project>
-      <Name>URISerializer</Name>
+      <Name>UriSerializer</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

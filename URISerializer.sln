@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.22310.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URISerializer", "URISerializer\URISerializer.csproj", "{83A25229-B3B2-438F-A2E4-B81CEFF19317}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UriSerializer", "URISerializer\UriSerializer.csproj", "{83A25229-B3B2-438F-A2E4-B81CEFF19317}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URISerializer.Tests", "URISerializer.Tests\URISerializer.Tests.csproj", "{0EEC6652-E6B3-40AF-8AD8-8D977CABB7F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UriSerializer.Tests", "URISerializer.Tests\UriSerializer.Tests.csproj", "{0EEC6652-E6B3-40AF-8AD8-8D977CABB7F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
