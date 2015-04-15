@@ -77,15 +77,8 @@ namespace URISerializer
         public T Deserialize<T>(Uri uri)
         {
             string scheme = uri.Scheme;
-            string resource = uri.Host + uri.AbsolutePath;
-            NameValueCollection query = HttpUtility.ParseQueryString(uri.Query);
-            IDictionary<string, string> vars = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
-            vars.Add("resource", resource);
-            var items = query.AllKeys.SelectMany(query.GetValues, (k, v) => new { key = k, value = v });
-            foreach (var item in items)
-            {
-                vars.Add(item.key, item.value);
-            }
+            string resource = uri.AbsolutePath == "/" ? uri.Host : uri.Host + uri.AbsolutePath;
+            NameValueCollection qString = HttpUtility.ParseQueryString(uri.Query);
 
             Type type = this._map[scheme];
             if (type == null)
@@ -109,8 +102,8 @@ namespace URISerializer
             {
                 string pname = GetNameFromAttribute(parameters[i]) ?? parameters[i].Name;
                 Type ptype = parameters[i].ParameterType;
-                string arg;
-                if (vars.TryGetValue(pname, out arg))
+                String[] vals = ((pname.Equals("resource", StringComparison.InvariantCultureIgnoreCase)) ? new String[] { resource } : null) ?? qString.GetValues(pname);
+                if (vals != null)
                 {
                     IUriConverter converter = GetConverterFromAttribute(parameters[i])
                         ?? GetConverter(this._converters, ptype)
@@ -121,8 +114,7 @@ namespace URISerializer
                         throw new Exception(string.Format("No converter found for Type {0}", ptype.Name));
                     }
 
-                    args[i] = converter.ReadValue(ptype, arg);
-                    vars.Remove(arg);
+                    args[i] = converter.ReadValue(ptype, vals);
                 }
                 // try get default
                 else if (parameters[i].IsOptional)
@@ -145,9 +137,8 @@ namespace URISerializer
                 {
                     string pname = GetNameFromAttribute(properties[i]) ?? properties[i].Name;
                     Type ptype = properties[i].PropertyType;
-
-                    string arg;
-                    if (vars.TryGetValue(pname, out arg))
+                    String[] vals =  ((pname.Equals("resource", StringComparison.InvariantCultureIgnoreCase)) ? new String[] { resource } : null) ?? qString.GetValues(pname);
+                    if (vals != null)
                     {
                         IUriConverter converter = GetConverterFromAttribute(properties[i])
                             ?? GetConverter(this._converters, ptype)
@@ -158,7 +149,7 @@ namespace URISerializer
                             throw new Exception(string.Format("No converter found for Type {0}", ptype.Name));
                         }
 
-                        object[] value = new object[] { converter.ReadValue(ptype, arg) };
+                        object[] value = new object[] { converter.ReadValue(ptype, vals) };
                         mi.Invoke(obj, value);
                     }
                 }

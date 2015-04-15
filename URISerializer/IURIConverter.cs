@@ -9,10 +9,7 @@ namespace URISerializer
     public interface IUriConverter
     {
         bool CanConvert(Type type);
-        object ReadValue(Type type, string value);
+        object ReadValue(Type type, String[] values);
         string WriteValue(Type type, object value);
-
-        bool CanRead { get; }
-        bool CanWrite { get; }
     }
 }

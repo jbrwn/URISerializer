@@ -8,18 +8,20 @@ namespace URISerializer
 {
     public class PrimitiveConverter : IUriConverter
     {
-        public bool CanRead { get { return true; } }
-
-        public bool CanWrite { get { return true; } }
-
         public bool CanConvert(Type type)
         {
-            return type.IsPrimitive || type == typeof(string);
+            return type.IsPrimitive
+                || type == typeof(String)
+                || type == typeof(Decimal);
         }
 
-        public object ReadValue(Type type, string value)
+        public object ReadValue(Type type, String[] values)
         {
-            return Convert.ChangeType(value, type);
+            if (values.Length > 1)
+            {
+                throw new ArgumentException("Cannot convert more than one value", "values");
+            }
+            return Convert.ChangeType(values[0], type);
         }
 
         public string WriteValue(Type type, object value)
